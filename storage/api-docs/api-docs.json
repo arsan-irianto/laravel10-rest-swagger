@@ -1,0 +1,24 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Application API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/index": {
+            "get": {
+                "tags": [
+                    "Index"
+                ],
+                "summary": "Get Index Page",
+                "description": "Get Index Page Description",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "An example endpoint"
+                    }
+                }
+            }
+        }
+    }
+}
