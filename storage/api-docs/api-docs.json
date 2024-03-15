@@ -1,23 +1,266 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Application API",
+        "title": "{JSON} Placeholder API",
+        "license": {
+            "name": "MIT"
+        },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1"
+        }
+    ],
     "paths": {
-        "/index": {
+        "/posts": {
             "get": {
                 "tags": [
-                    "Index"
+                    "posts"
                 ],
-                "summary": "Get Index Page",
-                "description": "Get Index Page Description",
-                "operationId": "index",
+                "summary": "Post list",
+                "description": "Get All Post",
+                "operationId": "posts.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=news",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "An example endpoint"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "userId": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "example": "quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/posts?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/posts?page=10"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/posts?page=2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/posts"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "tags": [
+                    "posts"
+                ],
+                "summary": "Post By ID",
+                "description": "Get Post By ID",
+                "operationId": "posts.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "userId": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "token": {
+                "type": "http",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "mobilekey": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
             }
         }
     }
