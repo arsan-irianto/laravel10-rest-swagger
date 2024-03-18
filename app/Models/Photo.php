@@ -9,7 +9,8 @@ class Photo extends Model
 {
     use HasFactory;
 
-    public function album() {
+    public function album()
+    {
         return $this->belongsTo(Album::class);
     }
 }

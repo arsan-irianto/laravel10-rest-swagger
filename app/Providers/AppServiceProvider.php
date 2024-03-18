@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use Illuminate\Support\ServiceProvider;
 

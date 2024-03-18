@@ -18,9 +18,9 @@ class PhotoFactory extends Factory
     public function definition(): array
     {
         return [
-            'album_id' => Album::factory(),
-            'title' => $this->faker->realTextBetween(10, 50, 2),
-            'url' => $this->faker->imageUrl(),
+            'album_id'      => Album::factory(),
+            'title'         => $this->faker->realTextBetween(10, 50, 2),
+            'url'           => $this->faker->imageUrl(),
             'thumbnail_url' => $this->faker->imageUrl(),
         ];
     }

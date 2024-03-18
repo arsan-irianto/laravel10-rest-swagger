@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Annotations;
 
 /**
- * Class PostAnnotation
+ * Class PostAnnotation.
  *
  * @description: For swagger generated documentation routes to PostController
  * @author Arsan <arsan.irianto@gmail.com>
@@ -107,7 +107,9 @@ class PostAnnotation
      *     )
      * )
      */
-    public function index() {}
+    public function index()
+    {
+    }
 
     /**
      * @OA\Get(
@@ -137,5 +139,7 @@ class PostAnnotation
      *     )
      * )
      */
-    public function show() {}
+    public function show()
+    {
+    }
 }

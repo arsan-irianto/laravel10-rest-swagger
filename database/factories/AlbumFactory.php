@@ -19,7 +19,7 @@ class AlbumFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'title' => $this->faker->realTextBetween(10, 50, 2),
+            'title'   => $this->faker->realTextBetween(10, 50, 2),
         ];
     }
 }

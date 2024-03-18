@@ -8,9 +8,8 @@ use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-
 /**
- * Class PostController
+ * Class PostController.
  *
  * @author Arsan <arsan.irianto@gmail.com>
  * @since 2024-03-15
@@ -27,5 +26,4 @@ class PostController extends Controller
     {
         return new PostResource($post);
     }
-
 }

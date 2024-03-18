@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'default',
+    'default'        => 'default',
     'documentations' => [
         'default' => [
             'api' => [
@@ -61,9 +61,9 @@ return [
              * Middleware allows to prevent unexpected access to API documentation
             */
             'middleware' => [
-                'api' => [],
-                'asset' => [],
-                'docs' => [],
+                'api'             => [],
+                'asset'           => [],
+                'docs'            => [],
                 'oauth2_callback' => [],
             ],
 
@@ -103,21 +103,21 @@ return [
         ],
 
         'scanOptions' => [
-            /**
+            /*
              * analyser: defaults to \OpenApi\StaticAnalyser .
              *
              * @see \OpenApi\scan
              */
             'analyser' => null,
 
-            /**
+            /*
              * analysis: defaults to a new \OpenApi\Analysis .
              *
              * @see \OpenApi\scan
              */
             'analysis' => null,
 
-            /**
+            /*
              * Custom query path processors classes.
              *
              * @link https://github.com/zircote/swagger-php/tree/master/Examples/schema-query-parameter-processor
@@ -127,7 +127,7 @@ return [
                 // new \App\SwaggerProcessors\SchemaQueryParameter(),
             ],
 
-            /**
+            /*
              * pattern: string       $pattern File pattern(s) to scan (default: *.php) .
              *
              * @see \OpenApi\scan
@@ -265,7 +265,7 @@ return [
                  */
                 'doc_expansion' => env('L5_SWAGGER_UI_DOC_EXPANSION', 'none'),
 
-                /**
+                /*
                  * If set, enables filtering. The top bar will show an edit box that
                  * you can use to filter the tagged operations that are shown. Can be
                  * Boolean to enable or disable, or a string, in which case filtering

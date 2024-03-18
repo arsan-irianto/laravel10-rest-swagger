@@ -21,7 +21,7 @@ class CommentFactory extends Factory
         return [
             'post_id' => Post::factory(),
             'user_id' => User::factory(),
-            'body' => $this->faker->realTextBetween(160, 1000, 2),
+            'body'    => $this->faker->realTextBetween(160, 1000, 2),
         ];
     }
 }

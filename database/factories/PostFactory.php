@@ -19,8 +19,8 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'title' => $this->faker->realTextBetween(10, 50, 2),
-            'body' => $this->faker->realTextBetween(160, 1000, 2),
+            'title'   => $this->faker->realTextBetween(10, 50, 2),
+            'body'    => $this->faker->realTextBetween(160, 1000, 2),
         ];
     }
 }
