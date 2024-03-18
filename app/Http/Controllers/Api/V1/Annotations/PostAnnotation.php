@@ -18,7 +18,6 @@ class PostAnnotation
      *     operationId="posts.index",
      *     tags={"posts"},
      *     summary="Post list",
-     *     description="Get All Post",
      *     security={{ "token":{}, "mobilekey":{} }},
      *     @OA\Parameter(
      *          name="limit",
@@ -117,10 +116,10 @@ class PostAnnotation
      *     operationId="posts.show",
      *     tags={"posts"},
      *     summary="Post By ID",
-     *     description="Get Post By ID",
      *     security={{ "token":{}, "mobilekey":{} }},
      *     @OA\Parameter(
      *          name="id",
+     *          description="Post ID",
      *          in="path",
      *          required=true,
      *          @OA\Schema(
@@ -142,4 +141,37 @@ class PostAnnotation
     public function show()
     {
     }
+
+    /**
+     * @OA\Post(
+     *     path="/posts",
+     *     operationId="posts.store",
+     *     tags={"posts"},
+     *     summary="Create New Post",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\RequestBody(
+     *          description="Payload for Create New Post",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"title", "body", "userId"},
+     *              @OA\Property(property="title", type="string", format="string", example="foo"),
+     *              @OA\Property(property="body", type="string", format="string", example="bar"),
+     *              @OA\Property(property="userId", type="integer", format="integer", example=1),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="integer", format="integer", example=1),
+     *              @OA\Property(property="title", type="string", format="string", example="foo"),
+     *              @OA\Property(property="body", type="string", format="string", example="bar"),
+     *              @OA\Property(property="userId", type="integer", format="integer", example=1),
+     *          )
+     *     )
+     * )
+     */
+    public function store()
+    {
+    } 
 }

@@ -19,7 +19,6 @@
                     "posts"
                 ],
                 "summary": "Post list",
-                "description": "Get All Post",
                 "operationId": "posts.index",
                 "parameters": [
                     {
@@ -190,6 +189,86 @@
                         "mobilekey": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "posts"
+                ],
+                "summary": "Create New Post",
+                "operationId": "posts.store",
+                "requestBody": {
+                    "description": "Payload for Create New Post",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body",
+                                    "userId"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "foo"
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "bar"
+                                    },
+                                    "userId": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 1
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "foo"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "bar"
+                                        },
+                                        "userId": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
             }
         },
         "/posts/{id}": {
@@ -198,12 +277,12 @@
                     "posts"
                 ],
                 "summary": "Post By ID",
-                "description": "Get Post By ID",
                 "operationId": "posts.show",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "Post ID",
                         "required": true,
                         "schema": {
                             "type": "integer"
