@@ -173,5 +173,110 @@ class PostAnnotation
      */
     public function store()
     {
-    } 
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/posts/{id}",
+     *     operationId="posts.update",
+     *     tags={"posts"},
+     *     summary="Update existing Post",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Post ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\RequestBody(
+     *          description="Payload for update existing Post",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"title", "body", "userId"},
+     *              @OA\Property(property="title", type="string", format="string", example="foo"),
+     *              @OA\Property(property="body", type="string", format="string", example="bar"),
+     *              @OA\Property(property="userId", type="integer", format="integer", example=1),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully update data"),
+     *          )
+     *     )
+     * )
+     */
+    public function update()
+    {
+    }
+
+    /**
+     * @OA\Patch(
+     *     path="/posts/{id}",
+     *     operationId="posts.updatePatch",
+     *     tags={"posts"},
+     *     summary="Update existing Post",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Post ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\RequestBody(
+     *          description="Payload for update existing Post",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"title", "body", "userId"},
+     *              @OA\Property(property="title", type="string", format="string", example="foo"),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully update data"),
+     *          )
+     *     )
+     * )
+     */
+    public function updatePatch()
+    {
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/posts/{id}",
+     *     operationId="posts.destroy",
+     *     tags={"posts"},
+     *     summary="Delete existing Post",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Post ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully delete data"),
+     *          )
+     *     )
+     * )
+     */
+    public function destroy()
+    {
+    }
 }

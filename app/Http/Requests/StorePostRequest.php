@@ -22,8 +22,8 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:3|max:255',
-            'body' => 'required',
+            'title'  => 'required|string|min:3|max:255',
+            'body'   => 'required',
             'userId' => 'required',
         ];
     }
@@ -31,7 +31,7 @@ class StorePostRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'user_id' => $this->userId
+            'user_id' => $this->userId,
         ]);
     }
 }

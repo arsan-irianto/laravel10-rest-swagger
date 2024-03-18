@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
@@ -31,5 +32,20 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         return new PostResource(Post::create($request->all()));
+    }
+
+    public function update(UpdatePostRequest $request, Post $post)
+    {
+        return _response_updated($post->update($request->all()));
+    }
+
+    public function updatePatch(UpdatePostRequest $request, Post $post)
+    {
+        $this->update($request, $post);
+    }
+
+    public function destroy(Post $post)
+    {
+        return _response_deleted(Post::destroy($post->id));
     }
 }

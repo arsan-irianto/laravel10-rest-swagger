@@ -95,3 +95,33 @@ if (!function_exists('_411')) {
         ], $code);
     }
 }
+
+if (!function_exists('_response_deleted')) {
+    function _response_deleted($data = null)
+    {
+        if ($data == 1) {
+            $message = "Successfully delete data";
+        } else {
+            $message = "Failed delete data";
+        }
+
+        return response()->json([
+            'message' => $message,
+        ]);
+    }
+}
+
+if (!function_exists('_response_updated')) {
+    function _response_updated($data = null)
+    {
+        if ($data == 1) {
+            $message = "Successfully update data";
+        } else {
+            $message = "Failed update data";
+        }
+
+        return response()->json([
+            'message' => $message,
+        ]);
+    }
+}

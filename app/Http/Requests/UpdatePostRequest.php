@@ -11,7 +11,7 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,29 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method(); // PUT or PATCH
+
+        if ($method == 'PUT') {
+            return [
+                'title'  => 'required|string|min:3|max:255',
+                'body'   => 'required',
+                'userId' => 'required',
+            ];
+        } else {
+            return [
+                'title'  => 'sometimes|required|string|min:3|max:255',
+                'body'   => 'sometimes|required',
+                'userId' => 'sometimes|required',
+            ];
+        }
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->postalCode) {
+            $this->merge([
+                'userId' => $this->postalCode,
+            ]);
+        }
     }
 }
