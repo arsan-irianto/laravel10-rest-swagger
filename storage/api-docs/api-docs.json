@@ -13,6 +13,248 @@
         }
     ],
     "paths": {
+        "/comments": {
+            "get": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Comment list",
+                "operationId": "comments.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=news",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "postId": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "id labore ex et quam laborum"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "Eliseo@gardner.biz"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "example": "laudantium enim quasi est quidem magnam voluptate ipsam eos\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/comments?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/comments?page=10"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/comments?page=2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/comments"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/comments/{id}": {
+            "get": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Comment By ID",
+                "operationId": "comments.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "postId": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "id labore ex et quam laborum"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "Eliseo@gardner.biz"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "laudantium enim quasi est quidem magnam voluptate ipsam eos\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
         "/posts": {
             "get": {
                 "tags": [

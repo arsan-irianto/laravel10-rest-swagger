@@ -21,7 +21,11 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        return new PostCollection(Post::paginate($request->limit));
+        return new PostCollection(Post::with(['user', 'comments'])
+            ->where('title', 'LIKE', "%" . $request->search . "%")
+            ->orWhere('body', 'LIKE', "%" . $request->search . "%")
+            ->orderBy($request->direction, $request->order)
+            ->paginate($request->limit));
     }
 
     public function show(Post $post)

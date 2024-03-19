@@ -1,19 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\V1\CommentCollection;
+use App\Http\Resources\V1\CommentResource;
 use App\Models\Comment;
+use Illuminate\Http\Request;
+
+/**
+ * Class CommentController.
+ *
+ * @author Arsan <arsan.irianto@gmail.com>
+ * @since 2024-03-15
+ */
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return new CommentCollection(Comment::with(['user'])
+            ->whereHas('user', function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%" . $request->search . "%")
+                    ->orWhere('email', 'LIKE', "%" . $request->search . "%");
+            })
+            ->orWhere('body', 'LIKE', "%" . $request->search . "%")
+            ->orderBy($request->direction, $request->order)
+            ->paginate($request->limit));
     }
 
     /**
@@ -37,7 +55,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return new CommentResource($comment);
     }
 
     /**
