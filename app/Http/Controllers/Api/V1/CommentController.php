@@ -29,6 +29,7 @@ class CommentController extends Controller
                 $query->where('name', 'LIKE', "%" . $request->search . "%")
                     ->orWhere('email', 'LIKE', "%" . $request->search . "%");
             })
+            ->join('users', 'comments.user_id', '=', 'users.id')
             ->orWhere('body', 'LIKE', "%" . $request->search . "%")
             ->orderBy($request->direction, $request->order)
             ->paginate($request->limit));

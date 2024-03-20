@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreAlbumRequest;
-use App\Http\Requests\UpdateAlbumRequest;
-use App\Models\Album;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePhotoRequest;
+use App\Http\Requests\UpdatePhotoRequest;
+use App\Models\Photo;
 
-class AlbumController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class AlbumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAlbumRequest $request)
+    public function store(StorePhotoRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album)
+    public function show(Photo $photo)
     {
         //
     }
@@ -43,7 +44,7 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Album $album)
+    public function edit(Photo $photo)
     {
         //
     }
@@ -51,7 +52,7 @@ class AlbumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAlbumRequest $request, Album $album)
+    public function update(UpdatePhotoRequest $request, Photo $photo)
     {
         //
     }
@@ -59,7 +60,7 @@ class AlbumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Album $album)
+    public function destroy(Photo $photo)
     {
         //
     }
