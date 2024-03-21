@@ -40,9 +40,9 @@ class UpdatePostRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->postalCode) {
+        if ($this->user_id) {
             $this->merge([
-                'userId' => $this->postalCode,
+                'userId' => $this->user_id,
             ]);
         }
     }

@@ -7,7 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
-use App\Models\Post;
+use App\Interfaces\PostRepositoryIfc;
 use Illuminate\Http\Request;
 
 /**
@@ -19,24 +19,27 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    private PostRepositoryIfc $postRepo;
+
+    public function __construct(PostRepositoryIfc $postRepo)
+    {
+        $this->postRepo = $postRepo;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return new PostCollection(Post::with(['user', 'comments'])
-            ->where('title', 'LIKE', "%" . $request->search . "%")
-            ->orWhere('body', 'LIKE', "%" . $request->search . "%")
-            ->orderBy($request->direction, $request->order)
-            ->paginate($request->limit));
+        return new PostCollection($this->postRepo->getPosts($request->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return new PostResource($post);
+        return new PostResource($this->postRepo->getPostById($id));
     }
 
     /**
@@ -44,30 +47,30 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        return new PostResource(Post::create($request->all()));
+        return new PostResource($this->postRepo->createPost($request->all()));
     }
 
     /**
      * Update the specified resource in storage with PUT method.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, int $id)
     {
-        return _response_updated($post->update($request->all()));
+        return _response_updated($this->postRepo->updatePost($request->all(), $id));
     }
 
     /**
      * Update the specified resource in storage with PATCH method.
      */
-    public function updatePatch(UpdatePostRequest $request, Post $post)
+    public function updatePatch(UpdatePostRequest $request, int $id)
     {
-        $this->update($request, $post);
+        $this->update($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(int $id)
     {
-        return _response_deleted(Post::destroy($post->id));
+        return _response_deleted($this->postRepo->deletePost($id));
     }
 }
