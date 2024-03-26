@@ -193,6 +193,86 @@
                         "mobilekey": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Create New Comment",
+                "operationId": "comments.store",
+                "requestBody": {
+                    "description": "Payload for Create New Comment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "postId",
+                                    "userId",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "postId": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": 82
+                                    },
+                                    "userId": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": 1
+                                    },
+                                    "body": {
+                                        "type": "integer",
+                                        "format": "string",
+                                        "example": "bar"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 1
+                                        },
+                                        "postId": {
+                                            "type": "string",
+                                            "format": "integer",
+                                            "example": 82
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "format": "integer",
+                                            "example": 1
+                                        },
+                                        "body": {
+                                            "type": "integer",
+                                            "format": "string",
+                                            "example": "bar"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
             }
         },
         "/comments/{id}": {
@@ -239,6 +319,113 @@
                                         "body": {
                                             "type": "string",
                                             "example": "laudantium enim quasi est quidem magnam voluptate ipsam eos\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Delete existing Comment",
+                "operationId": "comments.destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully delete data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Update comment",
+                "operationId": "comments.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Payload for update existing Comment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "body",
+                                    "body",
+                                    "userId"
+                                ],
+                                "properties": {
+                                    "body": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "foo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully update data"
                                         }
                                     },
                                     "type": "object"

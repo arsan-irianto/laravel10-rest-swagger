@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\V1\CommentCollection;
 use App\Http\Resources\V1\CommentResource;
+use App\Interfaces\CommentRepositoryIfc;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -19,20 +20,19 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    private CommentRepositoryIfc $commentRepo;
+
+    public function __construct(CommentRepositoryIfc $commentRepo)
+    {
+        $this->commentRepo = $commentRepo;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return new CommentCollection(Comment::with(['user'])
-            ->whereHas('user', function ($query) use ($request) {
-                $query->where('name', 'LIKE', "%" . $request->search . "%")
-                    ->orWhere('email', 'LIKE', "%" . $request->search . "%");
-            })
-            ->join('users', 'comments.user_id', '=', 'users.id')
-            ->orWhere('body', 'LIKE', "%" . $request->search . "%")
-            ->orderBy($request->direction, $request->order)
-            ->paginate($request->limit));
+        return new CommentCollection($this->commentRepo->getComments($request->all()));
     }
 
     /**
@@ -48,7 +48,7 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        return new CommentResource($this->commentRepo->createComment($request->all()));
     }
 
     /**
@@ -70,16 +70,16 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, int $id)
     {
-        //
+        return _response_updated($this->commentRepo->updateComment($request->all(), $id));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(int $id)
     {
-        //
+        return _response_deleted($this->commentRepo->deleteComment($id));
     }
 }

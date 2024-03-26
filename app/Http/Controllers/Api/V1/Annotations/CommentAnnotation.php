@@ -143,4 +143,103 @@ class CommentAnnotation
     public function show()
     {
     }
+
+    /**
+     * @OA\Post(
+     *     path="/comments",
+     *     operationId="comments.store",
+     *     tags={"comments"},
+     *     summary="Create New Comment",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\RequestBody(
+     *          description="Payload for Create New Comment",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"postId", "userId", "body"},
+     *              @OA\Property(property="postId", type="string", format="integer", example=82),
+     *              @OA\Property(property="userId", type="string", format="integer", example=1),
+     *              @OA\Property(property="body", type="integer", format="string", example="bar"),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="integer", format="integer", example=1),
+     *              @OA\Property(property="postId", type="string", format="integer", example=82),
+     *              @OA\Property(property="userId", type="string", format="integer", example=1),
+     *              @OA\Property(property="body", type="integer", format="string", example="bar"),
+     *          )
+     *     )
+     * )
+     */
+    public function store()
+    {
+    }
+
+    /**
+     * @OA\Patch(
+     *     path="/comments/{id}",
+     *     operationId="comments.update",
+     *     tags={"comments"},
+     *     summary="Update comment",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Comment ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\RequestBody(
+     *          description="Payload for update existing Comment",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"body", "body", "userId"},
+     *              @OA\Property(property="body", type="string", format="string", example="foo"),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully update data"),
+     *          )
+     *     )
+     * )
+     */
+    public function update()
+    {
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/comments/{id}",
+     *     operationId="comments.destroy",
+     *     tags={"comments"},
+     *     summary="Delete existing Comment",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Comment ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully delete data"),
+     *          )
+     *     )
+     * )
+     */
+    public function destroy()
+    {
+    }
 }
