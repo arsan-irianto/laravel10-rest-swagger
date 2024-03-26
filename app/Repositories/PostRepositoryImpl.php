@@ -3,12 +3,15 @@
 namespace App\Repositories;
 
 use App\Interfaces\PostRepositoryIfc;
+use App\Models\Comment;
 use App\Models\Post;
 
 class PostRepositoryImpl implements PostRepositoryIfc
 {
     public function getPosts(array $request)
     {
+        $request['search'] = isset($request['search']) ?? '';
+
         return Post::with(['user', 'comments'])
         ->where('title', 'LIKE', "%" . $request['search'] . "%")
         ->orWhere('body', 'LIKE', "%" . $request['search'] . "%")
@@ -39,5 +42,25 @@ class PostRepositoryImpl implements PostRepositoryIfc
     public function deletePost(int $id)
     {
         return Post::destroy($id);
+    }
+
+    public function getPostComments(int $id, $paginate = false)
+    {
+        $comments = Comment::select([
+            'comments.id',
+            'comments.post_id',
+            'comments.user_id',
+            'comments.body',
+            'users.name',
+            'users.email',
+        ])->with(['user'])
+        ->join('users', 'comments.user_id', '=', 'users.id')
+        ->where('post_id', $id);
+
+        if ($paginate == true) {
+            return $comments->paginate(10);
+        }
+
+        return $comments->get();
     }
 }

@@ -279,4 +279,64 @@ class PostAnnotation
     public function destroy()
     {
     }
+
+    /**
+     * @OA\Get(
+     *     path="/posts/{id}/comments",
+     *     operationId="posts.showComments",
+     *     tags={"posts"},
+     *     summary="Comment list By Post ID",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Post ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="postId", type="integer", example="1"),
+     *                      @OA\Property(property="userId", type="integer", example="1"),
+     *                      @OA\Property(property="name", type="string", example="id labore ex et quam laborum"),
+     *                      @OA\Property(property="email", type="string", example="Eliseo@gardner.biz"),
+     *                      @OA\Property(property="body", type="string", example="laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"),
+     *                  )
+     *              ),
+     *              @OA\Property(property="links", type="object",
+     *                  @OA\Property(property="first", type="string", example="/api/v1/posts/1/comments?page=1"),
+     *                  @OA\Property(property="last", type="string", example="/api/v1/posts/1/comments?page=10"),
+     *                  @OA\Property(property="prev", type="string", example=null),
+     *                  @OA\Property(property="next", type="string", example="/api/v1/posts/1/comments?page=2"),
+     *              ),
+     *              @OA\Property(property="meta", type="object",
+     *                  @OA\Property(property="current", type="integer", example=1),
+     *                  @OA\Property(property="from", type="integer", example=1),
+     *                  @OA\Property(property="last_page", type="integer", example=10),
+     *                  @OA\Property(property="links", type="array",
+     *                      @OA\Items(
+     *                          @OA\Property(property="url", type="string", example=null),
+     *                          @OA\Property(property="label", type="string", example="&laquo; Previous"),
+     *                          @OA\Property(property="active", type="boolean", example="false"),
+     *                      )
+     *                  ),
+     *                  @OA\Property(property="path", type="string", example="/api/v1/comments"),
+     *                  @OA\Property(property="per_page", type="integer", example=1),
+     *                  @OA\Property(property="to", type="integer", example=1),
+     *                  @OA\Property(property="total", type="integer", example=10),
+     *              ),
+     *          )
+     *     )
+     * )
+     */
+    public function showComments()
+    {
+    }
 }

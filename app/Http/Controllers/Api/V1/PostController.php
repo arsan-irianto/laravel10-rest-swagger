@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\V1\CommentCollection;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use App\Interfaces\PostRepositoryIfc;
@@ -72,5 +73,10 @@ class PostController extends Controller
     public function destroy(int $id)
     {
         return _response_deleted($this->postRepo->deletePost($id));
+    }
+
+    public function showComments($id)
+    {
+        return new CommentCollection($this->postRepo->getPostComments($id, true));
     }
 }

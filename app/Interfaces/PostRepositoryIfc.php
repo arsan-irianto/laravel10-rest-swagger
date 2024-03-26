@@ -8,6 +8,8 @@ interface PostRepositoryIfc
 
     public function getPostById(int $id);
 
+    public function getPostComments(int $id, $paginate = false);
+
     public function createPost(array $request);
 
     public function updatePost(array $request, int $id);

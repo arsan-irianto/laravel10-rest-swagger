@@ -74,8 +74,9 @@ class CommentAnnotation
      *          @OA\JsonContent(
      *              @OA\Property(property="data", type="array",
      *                  @OA\Items(
-     *                      @OA\Property(property="postId", type="integer", example="1"),
      *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="postId", type="integer", example="1"),
+     *                      @OA\Property(property="userId", type="integer", example="1"),
      *                      @OA\Property(property="name", type="string", example="id labore ex et quam laborum"),
      *                      @OA\Property(property="email", type="string", example="Eliseo@gardner.biz"),
      *                      @OA\Property(property="body", type="string", example="laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"),
