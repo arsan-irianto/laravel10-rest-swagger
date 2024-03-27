@@ -74,8 +74,8 @@ class PostAnnotation
      *          @OA\JsonContent(
      *              @OA\Property(property="data", type="array",
      *                  @OA\Items(
-     *                      @OA\Property(property="userId", type="integer", example="1"),
      *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="userId", type="integer", example="1"),
      *                      @OA\Property(property="title", type="string", example="sunt aut facere repellat provident occaecati excepturi optio reprehenderit"),
      *                      @OA\Property(property="body", type="string", example="quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"),
      *                  )
@@ -130,8 +130,8 @@ class PostAnnotation
      *          response=200,
      *          description="Success",
      *          @OA\JsonContent(
-     *              @OA\Property(property="userId", type="integer", example="1"),
      *              @OA\Property(property="id", type="integer", example="1"),
+     *              @OA\Property(property="userId", type="integer", example="1"),
      *              @OA\Property(property="title", type="string", example="sunt aut facere repellat provident occaecati excepturi optio reprehenderit"),
      *              @OA\Property(property="body", type="string", example="quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"),
      *          )

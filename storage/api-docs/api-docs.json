@@ -304,11 +304,15 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
                                         "postId": {
                                             "type": "integer",
                                             "example": "1"
                                         },
-                                        "id": {
+                                        "userId": {
                                             "type": "integer",
                                             "example": "1"
                                         },
@@ -322,7 +326,7 @@
                                         },
                                         "body": {
                                             "type": "string",
-                                            "example": "laudantium enim quasi est quidem magnam voluptate ipsam eos\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium"
+                                            "example": "laudantium enim quasi est quidem magnam"
                                         }
                                     },
                                     "type": "object"
@@ -515,11 +519,11 @@
                                             "type": "array",
                                             "items": {
                                                 "properties": {
-                                                    "userId": {
+                                                    "id": {
                                                         "type": "integer",
                                                         "example": "1"
                                                     },
-                                                    "id": {
+                                                    "userId": {
                                                         "type": "integer",
                                                         "example": "1"
                                                     },
@@ -729,11 +733,11 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "userId": {
+                                        "id": {
                                             "type": "integer",
                                             "example": "1"
                                         },
-                                        "id": {
+                                        "userId": {
                                             "type": "integer",
                                             "example": "1"
                                         },
