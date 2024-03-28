@@ -1,14 +1,14 @@
 <?php
 
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Response;
-
-const API_ENDPOINT = '/api/v1/posts';
 
 test('user can get list of posts', function () {
     Post::factory()->create();
 
-    $this->json('get', API_ENDPOINT . "?direction=id&order=desc&limit=1")
+    $this->getJson('/api/v1/posts' . "?direction=id&order=desc&limit=1")
     ->assertStatus(Response::HTTP_OK)
     ->assertJsonStructure(
         [
@@ -49,7 +49,7 @@ test('user can get list of posts', function () {
 test('user can get post by id', function () {
     $post = Post::factory()->create();
 
-    $this->json('get', API_ENDPOINT . "/" . $post->id)
+    $this->getJson('/api/v1/posts/' . $post->id)
     ->assertStatus(Response::HTTP_OK)
     ->assertExactJson([
         'id'     => $post->id,
@@ -66,7 +66,7 @@ test('user can create new post', function () {
         'userId' => 1,
     ];
 
-    $this->json('post', API_ENDPOINT, $payload)
+    $this->postJson('/api/v1/posts/', $payload)
         ->assertStatus(Response::HTTP_CREATED)
         ->assertJsonStructure([
             'id',
@@ -81,7 +81,7 @@ test('user create new post with missing payload', function () {
         'title' => 'test title',
     ];
 
-    $this->json('post', API_ENDPOINT, $payload)
+    $this->postJson('/api/v1/posts/', $payload)
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJsonStructure(['message', 'errors']);
 });
@@ -95,7 +95,7 @@ test('user can update existing post with put method', function () {
         'userId' => 1,
     ];
 
-    $this->json('put', API_ENDPOINT . "/" . $post->id, $payload)
+    $this->putJson('/api/v1/posts/' . $post->id, $payload)
         ->assertStatus(Response::HTTP_OK)
         ->assertExactJson([
             'message' => 'Successfully update data',
@@ -109,7 +109,7 @@ test('user can update existing post with patch method', function () {
         'title' => 'foo edit',
     ];
 
-    $this->json('patch', API_ENDPOINT . "/" . $post->id, $payload)
+    $this->patchJson('/api/v1/posts/' . $post->id, $payload)
         ->assertStatus(Response::HTTP_OK)
         ->assertExactJson([
             'message' => 'Successfully update data',
@@ -119,9 +119,56 @@ test('user can update existing post with patch method', function () {
 test('user can delete existing post', function () {
     $post = Post::factory()->create();
 
-    $this->json('delete', API_ENDPOINT . "/" . $post->id)
+    $this->deleteJson('/api/v1/posts/' . $post->id)
         ->assertStatus(Response::HTTP_OK)
         ->assertExactJson([
             'message' => 'Successfully delete data',
         ]);
+});
+
+test('user can get list of comments by post id', function () {
+    Comment::factory()
+        ->has(Post::factory())
+        ->has(User::factory())
+        ->count(5)
+        ->create();
+
+    $this->getJson('api/v1/posts/' . 1 . '/comments')
+    ->assertStatus(Response::HTTP_OK)
+    ->assertJsonStructure(
+        [
+        'data' => [
+            '*' => [
+                'id',
+                'postId',
+                'userId',
+                'name',
+                'email',
+                'body',
+            ],
+        ],
+        'links' => [
+            'first',
+            'last',
+            'prev',
+            'next',
+        ],
+        'meta' => [
+            "current_page",
+            "from",
+            "last_page",
+            "links" => [
+                [
+                "url",
+                "label",
+                "active",
+                ],
+            ],
+            "path",
+            "per_page",
+            "to",
+            "total",
+        ],
+    ],
+    );
 });
