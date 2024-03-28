@@ -170,7 +170,9 @@ class CommentAnnotation
      *              @OA\Property(property="id", type="integer", format="integer", example=1),
      *              @OA\Property(property="postId", type="string", format="integer", example=82),
      *              @OA\Property(property="userId", type="string", format="integer", example=1),
-     *              @OA\Property(property="body", type="integer", format="string", example="bar"),
+     *              @OA\Property(property="name", type="string", format="string", example="bar"),
+     *              @OA\Property(property="email", type="string", format="string", example="bar"),
+     *              @OA\Property(property="body", type="string", format="string", example="bar"),
      *          )
      *     )
      * )
