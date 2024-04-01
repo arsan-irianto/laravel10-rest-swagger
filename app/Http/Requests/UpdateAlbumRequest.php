@@ -11,7 +11,7 @@ class UpdateAlbumRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,18 @@ class UpdateAlbumRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method(); // PUT or PATCH
+
+        if ($method == 'PUT') {
+            return [
+                'userId' => 'required',
+                'title'  => 'required',
+            ];
+        } else {
+            return [
+                'userId' => 'sometimes|required',
+                'title'  => 'sometimes|required',
+            ];
+        }
     }
 }

@@ -14,16 +14,19 @@ class AlbumSeeder extends Seeder
     {
         Album::factory()
         ->count(5)
+        ->hasUser(5)
         ->hasPhotos(5)
         ->create();
 
         Album::factory()
         ->count(3)
+        ->hasUser(5)
         ->hasPhotos(10)
         ->create();
 
         Album::factory()
         ->count(2)
+        ->hasUser(5)
         ->hasPhotos(15)
         ->create();
     }

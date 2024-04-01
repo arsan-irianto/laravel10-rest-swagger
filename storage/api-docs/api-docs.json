@@ -13,6 +13,411 @@
         }
     ],
     "paths": {
+        "/albums": {
+            "get": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Album list",
+                "operationId": "albums.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=news",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "userId": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "id labore ex et quam laborum"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums?page=10"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums?page=2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Create New Album",
+                "operationId": "albums.store",
+                "requestBody": {
+                    "description": "Payload for Create New Comment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "userId",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "userId": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "integer",
+                                        "format": "string",
+                                        "example": "bar"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 1
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "format": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "bar"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "bar"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/albums/{id}": {
+            "get": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Comment By ID",
+                "operationId": "albums.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "userId": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "id labore ex et quam laborum"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Delete existing Album",
+                "operationId": "albums.destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Album ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully delete data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Update album",
+                "operationId": "albums.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Album ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Payload for update existing Album Title",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "foo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully update data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
         "/comments": {
             "get": {
                 "tags": [
@@ -259,8 +664,18 @@
                                             "format": "integer",
                                             "example": 1
                                         },
+                                        "name": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "bar"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "string",
+                                            "example": "bar"
+                                        },
                                         "body": {
-                                            "type": "integer",
+                                            "type": "string",
                                             "format": "string",
                                             "example": "bar"
                                         }
