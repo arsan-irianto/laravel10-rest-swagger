@@ -5,24 +5,27 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Resources\V1\AlbumCollection;
+use App\Http\Resources\V1\AlbumResource;
+use App\Interfaces\AlbumRepositoryIfc;
 use App\Models\Album;
+use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private AlbumRepositoryIfc $albumRepo;
+
+    public function __construct(AlbumRepositoryIfc $albumRepo)
     {
-        //
+        $this->albumRepo = $albumRepo;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        return new AlbumCollection($this->albumRepo->getAlbums($request->all()));
     }
 
     /**
@@ -30,7 +33,7 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbumRequest $request)
     {
-        //
+        return new AlbumResource($this->albumRepo->createAlbum($request->all()));
     }
 
     /**
@@ -38,30 +41,22 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Album $album)
-    {
-        //
+        return new AlbumResource($album);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAlbumRequest $request, Album $album)
+    public function update(UpdateAlbumRequest $request, int $id)
     {
-        //
+        return _response_updated($this->albumRepo->updateAlbum($request->all(), $id));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Album $album)
+    public function destroy(int $id)
     {
-        //
+        return _response_deleted($this->albumRepo->deleteAlbum($id));
     }
 }

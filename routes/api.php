@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AlbumController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\PostController;
 use Illuminate\Http\Request;
@@ -25,4 +26,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('posts', PostController::class);
     Route::get('posts/{id}/comments', [PostController::class, 'showComments'])->name('posts.showComments');
     Route::apiResource('comments', CommentController::class);
+    Route::apiResource('albums', AlbumController::class);
 });
