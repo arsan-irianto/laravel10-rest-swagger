@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\AlbumRepositoryIfc;
 use App\Models\Album;
+use App\Models\Photo;
 
 class AlbumRepositoryImpl implements AlbumRepositoryIfc
 {
@@ -49,5 +50,25 @@ class AlbumRepositoryImpl implements AlbumRepositoryIfc
     public function deleteAlbum(int $id)
     {
         return Album::destroy($id);
+    }
+
+    public function getAlbumPhotos(int $id, $paginate = false)
+    {
+        $photos = Photo::select([
+            'photos.id',
+            'photos.album_id',
+            'photos.title',
+            'photos.url',
+            'photos.thumbnail_url',
+        ])->with(['album'])
+        ->join('albums', 'photos.album_id', '=', 'albums.id')
+        ->join('users', 'albums.user_id', '=', 'users.id')
+        ->where('album_id', $id);
+
+        if ($paginate == true) {
+            return $photos->paginate(10);
+        }
+
+        return $photos->get();
     }
 }

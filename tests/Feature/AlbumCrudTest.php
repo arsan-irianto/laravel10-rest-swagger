@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Album;
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Http\Response;
 
@@ -114,4 +115,58 @@ test('user can delete existing album', function () {
         ->assertExactJson([
             'message' => 'Successfully delete data',
         ]);
+});
+
+test('user can get list of photos by album id', function () {
+    Album::factory()
+        ->has(User::factory())
+        ->create();
+
+    Photo::factory()
+        ->has(Album::factory())
+        ->count(10)
+        ->create();
+
+    $this->getJson('api/v1/albums/' . 10 . '/photos')
+    ->assertStatus(Response::HTTP_OK)
+    ->assertJsonStructure([
+        'data' => [
+            '*' => [
+                'albumId',
+                'id',
+                'title',
+                'url',
+                'thumbnailUrl',
+            ],
+        ],
+    ])
+    ->assertJsonStructure(
+        [
+            'data' => [
+                '*' => [],
+            ],
+            'links' => [
+                'first',
+                'last',
+                'prev',
+                'next',
+            ],
+            'meta' => [
+                "current_page",
+                "from",
+                "last_page",
+                "links" => [
+                    [
+                    "url",
+                    "label",
+                    "active",
+                    ],
+                ],
+                "path",
+                "per_page",
+                "to",
+                "total",
+            ],
+        ],
+    );
 });

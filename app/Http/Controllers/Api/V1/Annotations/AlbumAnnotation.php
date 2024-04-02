@@ -237,4 +237,63 @@ class AlbumAnnotation
     public function destroy()
     {
     }
+
+    /**
+     * @OA\Get(
+     *     path="/albums/{id}/photos",
+     *     operationId="albums.showPhotos",
+     *     tags={"albums"},
+     *     summary="Photo list By Album ID",
+     *     security={{ "token":{}, "mobilekey":{} }},
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Album ID",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="albumId", type="integer", example="1"),
+     *                      @OA\Property(property="id", type="integer", example="1"),
+     *                      @OA\Property(property="title", type="string", example="id labore ex et quam laborum"),
+     *                      @OA\Property(property="url", type="string", example="https://via.placeholder.com/600/92c952"),
+     *                      @OA\Property(property="thumbnailUrl", type="string", example="https://via.placeholder.com/150/92c952"),
+     *                  )
+     *              ),
+     *              @OA\Property(property="links", type="object",
+     *                  @OA\Property(property="first", type="string", example="/api/v1/albums/1/photos?page=1"),
+     *                  @OA\Property(property="last", type="string", example="/api/v1/albums/1/photos?page=10"),
+     *                  @OA\Property(property="prev", type="string", example=null),
+     *                  @OA\Property(property="next", type="string", example="/api/v1/albums/1/photos?page=2"),
+     *              ),
+     *              @OA\Property(property="meta", type="object",
+     *                  @OA\Property(property="current", type="integer", example=1),
+     *                  @OA\Property(property="from", type="integer", example=1),
+     *                  @OA\Property(property="last_page", type="integer", example=10),
+     *                  @OA\Property(property="links", type="array",
+     *                      @OA\Items(
+     *                          @OA\Property(property="url", type="string", example=null),
+     *                          @OA\Property(property="label", type="string", example="&laquo; Previous"),
+     *                          @OA\Property(property="active", type="boolean", example="false"),
+     *                      )
+     *                  ),
+     *                  @OA\Property(property="path", type="string", example="/api/v1/albums"),
+     *                  @OA\Property(property="per_page", type="integer", example=1),
+     *                  @OA\Property(property="to", type="integer", example=1),
+     *                  @OA\Property(property="total", type="integer", example=10),
+     *              ),
+     *          )
+     *     )
+     * )
+     */
+    public function showComments()
+    {
+    }
 }
