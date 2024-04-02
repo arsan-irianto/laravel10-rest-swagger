@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use App\Http\Resources\V1\AlbumCollection;
 use App\Http\Resources\V1\AlbumResource;
+use App\Http\Resources\V1\PhotoCollection;
 use App\Interfaces\AlbumRepositoryIfc;
 use App\Models\Album;
 use Illuminate\Http\Request;
@@ -58,5 +59,10 @@ class AlbumController extends Controller
     public function destroy(int $id)
     {
         return _response_deleted($this->albumRepo->deleteAlbum($id));
+    }
+
+    public function showPhotos($id)
+    {
+        return new PhotoCollection($this->albumRepo->getAlbumPhotos($id, true));
     }
 }

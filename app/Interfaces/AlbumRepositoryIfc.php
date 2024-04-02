@@ -8,6 +8,8 @@ interface AlbumRepositoryIfc
 
     public function getAlbumById(int $id);
 
+    public function getAlbumPhotos(int $id, $paginate = false);
+
     public function createAlbum(array $request);
 
     public function updateAlbum(array $request, int $id);

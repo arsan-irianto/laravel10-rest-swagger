@@ -27,4 +27,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::get('posts/{id}/comments', [PostController::class, 'showComments'])->name('posts.showComments');
     Route::apiResource('comments', CommentController::class);
     Route::apiResource('albums', AlbumController::class);
+    Route::get('albums/{id}/photos', [AlbumController::class, 'showPhotos'])->name('posts.showPhotos');
 });

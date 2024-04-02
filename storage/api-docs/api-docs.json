@@ -418,6 +418,148 @@
                 ]
             }
         },
+        "/albums/{id}/photos": {
+            "get": {
+                "tags": [
+                    "albums"
+                ],
+                "summary": "Photo list By Album ID",
+                "operationId": "albums.showPhotos",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Album ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "albumId": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "id labore ex et quam laborum"
+                                                    },
+                                                    "url": {
+                                                        "type": "string",
+                                                        "example": "https://via.placeholder.com/600/92c952"
+                                                    },
+                                                    "thumbnailUrl": {
+                                                        "type": "string",
+                                                        "example": "https://via.placeholder.com/150/92c952"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums/1/photos?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums/1/photos?page=10"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums/1/photos?page=2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "/api/v1/albums"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
         "/comments": {
             "get": {
                 "tags": [
