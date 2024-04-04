@@ -11,7 +11,7 @@ class StorePhotoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StorePhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'albumId'      => 'required',
+            'title'        => 'required',
+            'url'          => 'required',
+            'thumbnailUrl' => 'required',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'album_id'      => $this->albumId,
+            'thumbnail_url' => $this->thumbnailUrl,
+        ]);
     }
 }

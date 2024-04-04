@@ -5,24 +5,26 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoRequest;
-use App\Models\Photo;
+use App\Http\Resources\V1\PhotoCollection;
+use App\Http\Resources\V1\PhotoResource;
+use App\Interfaces\PhotoRepositoryIfc;
+use Illuminate\Http\Request;
 
 class PhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private PhotoRepositoryIfc $photoRepo;
+
+    public function __construct(PhotoRepositoryIfc $photoRepo)
     {
-        //
+        $this->photoRepo = $photoRepo;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        return new PhotoCollection($this->photoRepo->getPhotos($request->all()));
     }
 
     /**
@@ -30,38 +32,38 @@ class PhotoController extends Controller
      */
     public function store(StorePhotoRequest $request)
     {
-        //
+        return new PhotoResource($this->photoRepo->createPhoto($request->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Photo $photo)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Photo $photo)
-    {
-        //
+        return new PhotoResource($this->photoRepo->getPhotoById($id));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePhotoRequest $request, Photo $photo)
+    public function update(UpdatePhotoRequest $request, int $id)
     {
-        //
+        return _response_updated($this->photoRepo->updatePhoto($request->all(), $id));
+    }
+
+    /**
+     * Update the specified resource in storage with PATCH method.
+     */
+    public function updatePatch(UpdatePhotoRequest $request, int $id)
+    {
+        $this->update($request, $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Photo $photo)
+    public function destroy(int $id)
     {
-        //
+        return _response_deleted($this->photoRepo->deletePhoto($id));
     }
 }

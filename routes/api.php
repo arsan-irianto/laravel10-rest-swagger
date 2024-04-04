@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AlbumController;
 use App\Http\Controllers\Api\V1\CommentController;
+use App\Http\Controllers\Api\V1\PhotoController;
 use App\Http\Controllers\Api\V1\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('comments', CommentController::class);
     Route::apiResource('albums', AlbumController::class);
     Route::get('albums/{id}/photos', [AlbumController::class, 'showPhotos'])->name('posts.showPhotos');
+    Route::apiResource('photos', PhotoController::class);
 });
