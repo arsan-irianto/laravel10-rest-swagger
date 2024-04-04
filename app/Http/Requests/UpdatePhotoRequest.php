@@ -11,7 +11,7 @@ class UpdatePhotoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,30 @@ class UpdatePhotoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method(); // PUT or PATCH
+
+        if ($method == 'PUT') {
+            return [
+                'albumId'      => 'required',
+                'title'        => 'required|string|min:3|max:255',
+                'url'          => 'required',
+                'thumbnailUrl' => 'required',
+            ];
+        } else {
+            return [
+                'albumId'      => 'required',
+                'title'        => 'sometimes|required|string|min:3|max:255',
+                'url'          => 'required',
+                'thumbnailUrl' => 'required',
+            ];
+        }
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'album_id'      => $this->albumId,
+            'thumbnail_url' => $this->thumbnailUrl,
+        ]);
     }
 }
