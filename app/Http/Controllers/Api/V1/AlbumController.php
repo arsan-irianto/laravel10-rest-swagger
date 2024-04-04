@@ -9,7 +9,6 @@ use App\Http\Resources\V1\AlbumCollection;
 use App\Http\Resources\V1\AlbumResource;
 use App\Http\Resources\V1\PhotoCollection;
 use App\Interfaces\AlbumRepositoryIfc;
-use App\Models\Album;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -40,9 +39,9 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album)
+    public function show(int $id)
     {
-        return new AlbumResource($album);
+        return new AlbumResource($this->albumRepo->getAlbumById($id));
     }
 
     /**
